@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+{% extends "layout.html" %}
+
+{% block body %}
+
+{{project_list}}
+
+{% for project in project_list %}
+  <div class="col-md-3"><!-- GRID View of each User, with Avatars in particular cohort-->
+      <a href="/project_profile/{{project.id}}">
+        {% if project.avatar %}
+          <img class="avatar" src="/static/images/{{project.avatar}}">
+        {% else %}
+          <img class="avatar" src="/static/images/default-avatar.png" alt="" />
+        {% endif %}
+      <span class="text-center">{{project.name}}</span></a>
+  </div>
+{% endfor %}
+
+
+<br>
+<table>
+  <tr>
+    <th>
+      Name
+    </th>
+  </tr>
+{% for project in project_list %}
+  <tr>
+    <td><!--List of all Projects for any Cohort-->
+      <a href="/project_profile/{{project.id}}">{{project.name}}</a>
+    </td>
+  </tr>
+
+{% endfor %}
+</table>
+{% endblock %}

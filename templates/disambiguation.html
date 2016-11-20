@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+{% extends "layout.html" %}
+
+{% block body %}
+<!-- This is a page that will list the results of a search where the search parameters have multiple hits. Like if you search for matt, and there are multiple users named Matthew or Matt or whatever.-->
+<h3>Here are your results:</h3>
+{% for result in result_list %}
+<ul>
+  <li>
+    <a href="/profile/{{result.id}}">{{result.first_name}} {{result.last_name}}</a>
+  </li>
+</ul>
+{% endfor %}
+{% endblock %}

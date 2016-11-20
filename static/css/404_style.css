@@ -1,0 +1,29 @@
+/*
+ * 404 Page Styles
+ */
+
+body {
+  background-color: #fff;
+}
+
+html {
+  width:100%;
+  height:100%;
+}
+
+.horizontal {
+  display: flex;
+  justify-content: center;
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.horizontal img {
+  display: flex;
+  height: 70%;
+  width: 70%;
+}

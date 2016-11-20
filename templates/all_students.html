@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="row">
+  <div class="col-xs-1">
+
+  </div>
+  <div class="col-xs-10">
+    <br>
+    <br>
+    <form class="" action="" method="POST">
+      <label for="">Cohort Name:</label>
+
+      <div class="row"><!-- Select Dropdown box to choose cohort to view  -->
+        <div class="col-md-3">
+          <select class="form-control" name="cohort_name" onchange="this.form.submit()">
+            <option value="select_cohort">Select Cohort</option>
+            {% for cohort in cohort_list %}
+              <option value="{{cohort.name}}">{{cohort.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </form>
+
+    <br>
+    <br>
+    <div class="row"><!-- Row that lets you select which view: grid or table  -->
+      <div class="col-md-12">
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#grid">Grid View</a></li>
+          <li><a data-toggle="tab" href="#table">Table View</a></li>
+        </ul>
+
+        <div class="tab-content"><!-- Header Label that lists which cohort you are currently in  -->
+          <div id="grid" class="tab-pane fade in active">
+            {% if result_list[0] %}
+              <h3>{{result_list[0].name}} cohort</h3>
+            {% endif %}
+            {% for item in result_list %}
+              <div class="col-md-3"><!-- GRID View of each User, with Avatars in particular cohort-->
+                  <a href="/profile/{{item.id}}">
+                    {% if item.avatar %}
+                      <img class="avatar" src="/static/images/{{item.avatar}}">
+                    {% else %}
+                      <img class="avatar" src="/static/images/default-avatar.png" alt="" />
+                    {% endif %}
+                  <span class="text-center">{{item.first_name}} {{item.last_name}}</span></a>
+              </div>
+            {% endfor %}
+          </div>
+          <div id="table" class="tab-pane fade"><!-- TABLE View of each User, with Avatars, in particular cohort-->
+            {% if result_list[0] %}
+              <h3>{{result_list[0].name}} cohort</h3>
+              <br>
+              <table>
+                <tr>
+                  <th>
+                    Name
+                  </th>
+                </tr>
+              {% for item in result_list %}
+                <tr>
+                  <td><!-- Profile Avatars for individual profile-->
+                    <a href="/profile/{{item.id}}">
+                      {% if item.avatar %}
+                        <img class="small-avatar" src="/static/images/{{item.avatar}}" />{{item.first_name}} {{item.last_name}}
+                      {% else %}
+                        <!--Image for default avatar-->
+                        <img class="small-avatar" src="/static/images/default-avatar.png" alt="" />{{item.first_name}} {{item.last_name}}
+                      {% endif %}
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </table>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    {% if session['is_admin'] %}
+      <br><!--Submit Button for Adding and Entry-->
+      <form class="" action="/add" method="">
+        <button class="btn btn-default" type="submit" name="button_add_entry">Add Entry</button>
+      </form>
+    {% else %}
+      <br>
+    {% endif %}
+  </div>
+  <div class="col-xs-1">
+
+  </div>
+</div>
+
+{% endblock %}

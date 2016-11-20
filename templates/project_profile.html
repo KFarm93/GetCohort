@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--Project Profile that lists an Individual Project, information(url, notes) for that project, the skill/language/technology that was used for that project, the developers who worked in that particular project-->
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="row">
+<!-- column one -->
+  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+    <h1>{{project.name}}</h1>
+    <ul>
+      <li class="icons"><b>Web Address: </b>{{project.link}}</li>
+      <li class="icons"><b>Project Description</b><br>{{project.description}}</li>
+    </ul>
+
+    <br>
+    <h4>
+      Technology used:
+    </h4>
+    <!-- A for loop that cycles through the linking table for projects and skills and lists the skills used on a certain project.-->
+    <ul>
+      {% for skill in skills %}
+      <li>
+        <a href="/skill_profile/{{skill.skill_id}}">{{skill.skill_name}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    <br>
+    <h4>
+      Developer(s):
+    </h4>
+    <!-- A for loop that cycles through the linking table for projects and users and lists the users that worked on a certain project.-->
+    <ul>
+      {% for contributor in contributors %}
+      <li>
+        <a href="/profile/{{contributor.users_link_id}}">{{contributor.first_name}} {{contributor.last_name}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <!-- column one -->
+
+  <!-- column two -->
+  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 pull-right-sm cf">
+    <h1>Images</h1>
+    {% for item in images_information %}
+      <!-- GRID View of images for a particular project-->
+      <div class="col-md-4 cf">
+        <img class="avatar" src="/static/images/{{item.image}}" />
+        {% if item.description %}
+          <span class="project_description text-center">{{item.description}}</span>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+  </div>
+  <!-- column two -->
+
+  <div class="row">
+    <div class="col-xs-2">
+
+    </div>
+    <div class="col-xs-8">
+      <br>
+      <br>
+      <br>
+      {% for ids in contributors_id_list %}
+        {% for id in ids %}
+          {% if session['id'] in ids %}
+            <hr>
+            <h3>Upload Project Images</h3>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="project_id" value="{{project.id}}">
+              <input type="file" name="file">
+              <br>
+              <input class="btn btn-default" type="submit" value="Upload">
+            </form>
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+    <div class="col-xs-2">
+
+    </div>
+  </div>
+  <!-- /.row -->
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+
+{% extends "layout.html" %}
+{% block body %}<!--Login Form, enter username and password-->
+<form action="/submit_login" method="POST">
+  <label for="">Email</label><br>
+  <input type="text" name="email" value=""><br>
+  <label for="">Password</label><br>
+  <input type="password" name="password" value=""><br>
+
+  <button type="submit" name="button_login">Login</button>
+
+</form>
+{% endblock %}

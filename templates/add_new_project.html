@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--Add new Project, information(url, notes) for that project, the skill/language/technology that was used for that project, the developers who worked in that particular project -->
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="row">
+  <div class="col-xs-2">
+
+  </div>
+  <div class="col-xs-8">
+    <h3>What project would you like to add?</h3>
+    <form class="form-horizontal" action="/add_new_project" method="post">
+      <div class="form-group">
+        <label for="">Project Name:</label><br>
+        <input type="text" class="form-control" name="project_name" value="">
+      </div>
+      <div class="form-group">
+        <label for="">Web Address:</label><br>
+        <input type="text" class="form-control" name="web_page" value="">
+      </div>
+      <div class="form-group">
+        <label for="">Project Description:</label><br>
+        <textarea name="project_description" rows="8" cols="100"></textarea>
+      </div>
+
+      <br>
+      <!-- A for loop that cycles through the linking table for skills and lists the skills available that could have been used in the project. -->
+      <label for="">Technology Used?</label>
+      <div class="checkbox">
+        {% for entry in skills %}
+        <div class="checkbox">
+          <label><input type="checkbox" name="skill_id" value="{{entry.id}}">
+          {{entry.name}}
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+      <br>
+
+      <!-- A for loop that cycles through the linking table for users and lists the users available that could have worked in the project. -->
+      <label for="">Developers Involved?</label>
+      <div class="checkbox">
+        {% for entry in developers %}
+        <div class="checkbox">
+          <label><input type="checkbox" name="user_id" value="{{entry.id}}">
+          {{entry.first_name}} {{entry.last_name}}
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+      <br>
+      <button class="btn btn-default" type="submit" name="button_add_new_project">Add New Project</button>
+    </form>
+  </div>
+  <div class="col-xs-2">
+
+  </div>
+</div>
+
+
+{% endblock %}

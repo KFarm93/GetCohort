@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row">
+  <div class="col-xs-2">
+
+  </div>
+  <div class="col-xs-8">
+    <!--Form Update for User Profile Info-->
+    <form class="" action="/update_entry" method="POST">
+      <input type="hidden" name="id" value="{{user_id}}">
+      <div class="form-group">
+        <label for="">First Name:</label>
+        <input type="text" class="form-control" name="first_name" value="{{result.first_name}}">
+      </div>
+
+      <div class="form-group">
+        <label for="">Last Name:</label>
+        <input type="text" class="form-control" name="last_name" value="{{result.last_name}}">
+      </div>
+      <div class="form-group">
+        <label for="">Email:</label>
+        <input type="text" class="form-control" name="email" value="{{result.email}}">
+      </div>
+      <div class="form-group">
+        <label for="">Web Page:</label>
+        <input type="text" class="form-control" name="web_page" value="{{result.web_page}}">
+      </div>
+      <div class="form-group">
+        <label for="">GitHub:</label>
+        <input type="text" class="form-control" name="github" value="{{result.github}}">
+      </div>
+      <div class="form-group">
+        <label for="">Short Bio:</label>
+        <textarea class="form-control" name="bio" rows="8" cols="40">{{result.bio}}</textarea>
+      </div>
+      <div class="form-group">
+        <label for="">Projects</label>
+        {% for entry in query_project_name %}
+        <div class="radio">
+          <label><input type="checkbox" name="project_name" value="{{entry.id}}">
+          {{entry.name}}
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="">Skills</label>
+        {% for entry in query_skill_name %}
+        <div class="radio">
+          <label><input type="checkbox" name="skill_name" value="{{entry.id}}">
+          {{entry.name}}
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+      <br>
+      <button type="submit" class="btn btn-default" >Update Entry</button>
+    </form>
+  </div>
+  <div class="col-xs-2">
+
+  </div>
+</div>
+
+{% endblock %}

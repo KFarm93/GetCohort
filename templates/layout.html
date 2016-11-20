@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GetCohort</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    {% block personal_css %}
+      <link rel="stylesheet" href="/static/css/style.css" media="screen" title="no title">
+    {% endblock %}
+  </head>
+  <body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            Menu <i class="fa fa-bars"></i>
+          </button>
+          <a class="navbar-brand" href="/">GetCohort</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+          <form class="navbar-form navbar-left" action="/search_user" method="POST">
+            <div class="form-group">
+              <input type="text" class="form-control" name="search_bar" placeholder="Search...">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+          {% if session["email"] %}
+            <form class="navbar-form navbar-right" action="/submit_logout" method = "POST">
+              <span>
+                Hello
+                {{ session["first_name"].capitalize() }}!
+                {% if session['avatar'] %}
+                  <a href="/profile/{{session['id']}}">
+                    <img class="nav-avatar" src="/static/images/{{session['avatar']}}" alt="{{ session['first_name']}}"/>
+                  </a>
+                {% else %}
+                  <a href="/profile/{{session['id']}}">
+                    <img class="nav-avatar" src="/static/images/default-avatar.png" alt="{{ session['first_name']}}" />
+                  </a>
+                {% endif %}
+              </span>
+              <button type="submit" class="btn btn-default">Logout</button>
+            </form>
+          {% else %}
+            <form class="navbar-form navbar-right" action="/submit_login" method = "POST">
+              <div class="form-group">
+                <input type="text" class="form-control" name="email" placeholder="jane.doe@example.com">
+                <input type="password" class="form-control" name="password" placeholder="password">
+              </div>
+              <button type="submit" class="btn btn-default">Login</button>
+            </form>
+          {% endif %}
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    <!-- /nav -->
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <ul class="flashes alert alert-success alert-dismissible text-center" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          {% block body %}
+
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </body>
+
+</html>

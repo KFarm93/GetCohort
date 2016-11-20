@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="row">
+  <div class="col-xs-2">
+
+  </div>
+  <div class="col-xs-8">
+    <h1> {{skill.name}} </h1>
+    <hr>
+
+    <h3>These are the students at Digital Crafts who are proficiant in {{skill.name}}:</h3>
+    <br>
+    <ul>
+      {% for person in practitioners %}
+        <li>
+          <a href="/profile/{{person.id}}">{{person.first_name}} {{person.last_name}}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-xs-2">
+
+  </div>
+</div>
+
+
+{% endblock %}

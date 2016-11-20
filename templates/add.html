@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+{% extends "layout.html" %}
+
+{% block body %}
+<!-- Header -->
+
+<div class="row">
+  <div class="col-xs-2">
+
+  </div>
+  <div class="col-xs-8">
+    <!-- Form
+    Here's the bulk of the add_entry from. These fields will supply information to the users table in the database.-->
+    <h3>Who would you like to add?</h3>
+    <hr>
+    <form class="form-horizontal" action="/add_entry" method="post">
+      <div class="form-group">
+        <label for="">First Name:</label>
+        <input type="text" class="form-control" name="first_name" value="">
+      </div>
+      <div class="form-group">
+        <label for="">Last Name:</label>
+        <input type="text" class="form-control" name="last_name" value="">
+      </div>
+      <div class="form-group">
+        <label for="">Email:</label>
+        <input type="email" class="form-control" name="email" value="">
+      </div>
+      <div class="form-group">
+        <label for="">Web Page:</label>
+        <input type="text" class="form-control" name="web_page" value="">
+      </div>
+      <div class="form-group">
+        <label for="">GitHub:</label>
+        <input type="text" class="form-control" name="github" value="">
+      </div>
+      <div class="form-group">
+        <label for="">Company Name:</label>
+        <input type="text" class="form-control" name="company_name" value="">
+      </div>
+      <div class="form-group">
+        <label for="">Current Location:</label>
+        <input type="text" class="form-control" name="current_location" value="">
+      </div>
+      <div class="form-group">
+        <label for="">Short Bio:</label>
+        <textarea class="form-control" name="bio" rows="8" cols="40"></textarea>
+      </div>
+      <div class="form-group">
+        <div class="radio-inline">
+          <label>
+            <input type="radio" name="available_for_work" value="TRUE">
+            AVAILABLE for work
+          </label>
+        </div>
+        <div class="radio-inline">
+          <label>
+            <input type="radio" name="available_for_work" value="FALSE">
+            NOT AVAILABLE for work
+          </label>
+        </div>
+      </div>
+
+      <!-- Information now comes from the database! The for loop below will take the query_cohort_name query supplied from the '/add' app.route and populates the list with the data from the database.-->
+      <div class="form-group">
+        <label for="">Which Cohort?</label>
+        {% for entry in query_cohort_name %}
+        <div class="radio">
+          <label><input type="radio" name="cohort_id" value="{{entry.id}}">
+          {{entry.name}}
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+      <br>
+
+      <!-- Information now comes from the database! Similar to the above for loop. This time it takes the user_type information from the database-->
+      <div class="form-group">
+        <label for="">User Type?</label>
+        {% for entry in query_user_type %}
+        <div class="radio">
+          <label>
+            <input type="radio" name="user_type_id" value="{{entry.id}}">
+            {{entry.type}}
+          </label>
+        </div>
+        {% endfor %}
+        <br>
+
+      </div>
+      <button class="btn btn-default" type="submit" name="button_create_entry">Create Entry</button>
+    </form>
+  </div>
+  <div class="col-xs-2">
+
+  </div>
+</div>
+
+{% endblock %}

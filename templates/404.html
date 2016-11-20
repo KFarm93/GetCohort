@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+{% extends "layout.html" %}
+
+{% block personal_css %}
+  <link rel="stylesheet" href="/static/css/style.css" media="screen" title="no title">
+  <link rel="stylesheet" href="/static/css/404_style.css" media="screen" title="no title">
+{% endblock %}
+
+{% block body %}
+  <div class="container text-center">
+    <br>
+    <h1>404 Error!</h1>
+    <h3>Uh Oh!  Something Went Wrong</h3>
+    <br>
+    <br>
+    <div class="row vertical">
+      <div class="col-sm-12 horizontal">
+        <img src="/static/images/404.jpg" alt="Uh Oh! 404 Error!" />
+      </div>
+    </div>
+    <h3>Go back to the <a href="{{ url_for('home') }}">Home Page</a></h3>
+  </div>
+{% endblock %}
